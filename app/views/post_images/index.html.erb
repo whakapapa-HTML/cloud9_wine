@@ -1,15 +1,32 @@
 <% @post_images.each do |post_image| %>
-<div>
+<div class="app">
   <%= link_to post_image_path(post_image.id) do %>
   <%= attachment_image_tag post_image, :image, size: "400x400" %>
   <% end %>
   <p>投稿ユーザ画像: <%= attachment_image_tag post_image.user, :profile_image, :fill, 60,60,fallback:"no_image.jpg" %></p>
-  <p>ショップ名：<%= post_image.shop_name %></p>
+  <p :style="[baseStyles,styleObject,fontSelect]">ショップ名：<%= post_image.shop_name %></p>
   <p>説明：<%= post_image.caption %></p>
   <p>ユーザーネーム：<%= post_image.user.name %></p>
   <p><%= link_to "#{post_image.post_comments.count}コメント",post_image_path(post_image.id) %></p>
 </div>
   <% end %>
 
-
 <%= paginate @post_images %>
+
+  <script>
+    new Vue ({
+      el:  '.app',
+      data: {
+        styleObject: {
+          color: 'white',
+          'background-color': 'brown'
+        },
+        baseStyles:  {
+          'font-size': '50px'
+        },
+        fontSelect:{
+           'font-family': 'Microsoft Sans Serif'
+        }
+      }
+    })
+  </script>
